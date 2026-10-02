@@ -140,7 +140,7 @@ header {
   display: flex;
   align-items: center;
   gap: 22px;
-  height: 78px
+  height: var(--bh, 78px)
 }
 
 .logo {
@@ -891,8 +891,8 @@ footer {
     height: 46px
   }
 
-  .bar {
-    height: 68px
+  :root {
+    --bh: 68px
   }
 
   .hero {
@@ -1275,7 +1275,7 @@ footer {
 
   .panel {
     position: fixed;
-    top: calc(79px + env(safe-area-inset-top, 0px));
+    top: calc(var(--bh, 78px) + 1px + env(safe-area-inset-top, 0px));
     left: 0;
     right: 0;
     bottom: 0;
@@ -1293,6 +1293,10 @@ footer {
     opacity: 0;
     transform: translateY(-12px);
     transition: opacity .25s, transform .3s cubic-bezier(.2, .8, .2, 1), visibility 0s .3s
+  }
+
+  header.open {
+    background: var(--ink)
   }
 
   header.open .panel {
@@ -1351,10 +1355,6 @@ footer {
     margin-top: 24px;
     font-size: 26px;
     padding: 17px 22px 14px
-  }
-
-  html.nav-open {
-    overflow: hidden
   }
 
   html.nav-open .fab {

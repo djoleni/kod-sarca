@@ -58,7 +58,9 @@ var sv='lat';try{sv=localStorage.getItem('ks-m')||'lat'}catch(e){}if(sv=='cir')s
 
 /* mobile nav */
 (function(){var h=document.querySelector('header'),b=h.querySelector('.nb'),pn=document.getElementById('panel'),de=document.documentElement,mq=matchMedia('(max-width:1080px)');
-function set(o){h.classList.toggle('open',o);de.classList.toggle('nav-open',o);b.setAttribute('aria-expanded',o);pn.inert=mq.matches&&!o}
+function lock(e){if(!pn.contains(e.target))e.preventDefault()}
+function set(o){h.classList.toggle('open',o);de.classList.toggle('nav-open',o);b.setAttribute('aria-expanded',o);pn.inert=mq.matches&&!o;
+document[o?'addEventListener':'removeEventListener']('touchmove',lock,{passive:false});document[o?'addEventListener':'removeEventListener']('wheel',lock,{passive:false})}
 b.addEventListener('click',function(){set(!h.classList.contains('open'))});
 pn.addEventListener('click',function(e){if(e.target.closest('nav a,.btn.sm'))set(false)});
 addEventListener('keydown',function(e){if(e.key=='Escape'&&h.classList.contains('open')){set(false);b.focus()}});

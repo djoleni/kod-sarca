@@ -1274,12 +1274,11 @@ footer {
   }
 
   .panel {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: calc(79px + env(safe-area-inset-top, 0px));
     left: 0;
     right: 0;
-    height: calc(100vh - 68px - env(safe-area-inset-top, 0px));
-    height: calc(100dvh - 68px - env(safe-area-inset-top, 0px));
+    bottom: 0;
     margin: 0;
     flex-direction: column;
     align-items: stretch;
@@ -1301,6 +1300,10 @@ footer {
     opacity: 1;
     transform: none;
     transition: opacity .25s, transform .3s cubic-bezier(.2, .8, .2, 1)
+  }
+
+  .panel>* {
+    flex: none
   }
 
   nav {
@@ -1356,13 +1359,6 @@ footer {
 
   html.nav-open .fab {
     display: none
-  }
-}
-
-@media(max-width:860px) {
-  .panel {
-    height: calc(100vh - 68px - env(safe-area-inset-top, 0px));
-    height: calc(100dvh - 68px - env(safe-area-inset-top, 0px))
   }
 }
 

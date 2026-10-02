@@ -42,7 +42,7 @@ st.textContent=o?'Otvoreno sada':'Trenutno zatvoreno';st.className='st'+(o?' ope
 /* latin <-> cyrillic */
 var L={a:'а',b:'б',v:'в',g:'г',d:'д',đ:'ђ',e:'е',ž:'ж',z:'з',i:'и',j:'ј',k:'к',l:'л',m:'м',n:'н',o:'о',p:'п',r:'р',s:'с',t:'т',ć:'ћ',u:'у',f:'ф',h:'х',c:'ц',č:'ч',š:'ш',q:'к',w:'в',x:'кс',y:'ј'};
 var G={nj:'њ',lj:'љ',dž:'џ'};
-function cyr(s){var o='',i=0,lo=s.toLowerCase();while(i<s.length){var c=s[i],lc=lo[i],t=lo.substr(i,2);
+function cyr(s){s=s.replace(/stress/gi,function(m){return m.slice(0,5)+m.slice(6)});var o='',i=0,lo=s.toLowerCase();while(i<s.length){var c=s[i],lc=lo[i],t=lo.substr(i,2);
 if(G[t]){var r=G[t];o+=(c!==lc&&s[i+1]===lo[i+1]?r.toUpperCase():c!==lc?r.toUpperCase():r);i+=2;continue}
 if(L[lc]){o+=(c!==lc?(L[lc].toUpperCase()):L[lc])}else o+=c;i++}return o}
 var nodes=[];(function(){var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);while(w.nextNode()){var n=w.currentNode;
@@ -63,3 +63,11 @@ b.addEventListener('click',function(){set(!h.classList.contains('open'))});
 pn.addEventListener('click',function(e){if(e.target.closest('nav a,.btn.sm'))set(false)});
 addEventListener('keydown',function(e){if(e.key=='Escape'&&h.classList.contains('open')){set(false);b.focus()}});
 mq.addEventListener('change',function(){set(false)});set(false)})();
+
+/* anchor linkovi bez # u URL-u */
+(function(){var cl=function(){history.replaceState(null,'',location.pathname+location.search)};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey)return;
+var id=a.getAttribute('href').slice(1),t=id&&id!='top'?document.getElementById(id):null;if(id&&id!='top'&&!t)return;
+e.preventDefault();var rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(t)t.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});else scrollTo({top:0,behavior:rm?'auto':'smooth'});cl()});
+if(location.hash){var t=document.getElementById(location.hash.slice(1));cl();if(t)setTimeout(function(){t.scrollIntoView({block:'start'})},60)}})();

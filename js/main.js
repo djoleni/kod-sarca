@@ -57,57 +57,9 @@ try{localStorage.setItem('ks-m',m)}catch(e){}}
 var sv='lat';try{sv=localStorage.getItem('ks-m')||'lat'}catch(e){}if(sv=='cir')setM('cir');
 
 /* mobile nav */
-(function(){
-  var h=document.querySelector('header'),
-      b=h.querySelector('.nb'),
-      pn=document.getElementById('panel'),
-      de=document.documentElement,
-      bo=document.body,
-      mq=matchMedia('(max-width:1080px)');
-
-  function set(o){
-    h.classList.toggle('open',o);
-    de.classList.toggle('nav-open',o);
-    bo.classList.toggle('nav-open',o);
-
-    b.setAttribute('aria-expanded',o);
-
-    if(pn){
-      pn.inert=mq.matches&&!o;
-    }
-  }
-
-  function close(){
-    set(false);
-  }
-
-  b.addEventListener('click',function(){
-    set(!h.classList.contains('open'));
-  });
-
-  pn.addEventListener('click',function(e){
-    if(e.target.closest('nav a,.btn.sm')){
-      close();
-    }
-  });
-
-  /* Zatvori mobilni navbar kada se promeni jezik */
-  document.querySelectorAll('.lang button').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      close();
-    });
-  });
-
-  addEventListener('keydown',function(e){
-    if(e.key=='Escape'&&h.classList.contains('open')){
-      close();
-      b.focus();
-    }
-  });
-
-  mq.addEventListener('change',function(){
-    close();
-  });
-
-  set(false);
-})();
+(function(){var h=document.querySelector('header'),b=h.querySelector('.nb'),pn=document.getElementById('panel'),de=document.documentElement,mq=matchMedia('(max-width:1080px)');
+function set(o){h.classList.toggle('open',o);de.classList.toggle('nav-open',o);b.setAttribute('aria-expanded',o);pn.inert=mq.matches&&!o}
+b.addEventListener('click',function(){set(!h.classList.contains('open'))});
+pn.addEventListener('click',function(e){if(e.target.closest('nav a,.btn.sm'))set(false)});
+addEventListener('keydown',function(e){if(e.key=='Escape'&&h.classList.contains('open')){set(false);b.focus()}});
+mq.addEventListener('change',function(){set(false)});set(false)})();

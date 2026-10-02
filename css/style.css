@@ -1274,25 +1274,27 @@ footer {
   }
 
   .panel {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 68px);
     left: 0;
     right: 0;
-    height: calc(100vh - 68px - env(safe-area-inset-top, 0px));
-    height: calc(100dvh - 68px - env(safe-area-inset-top, 0px));
+    bottom: 0;
+    height: auto;
     margin: 0;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
     gap: 0;
-    padding: 12px 24px calc(28px + env(safe-area-inset-bottom, 0px));
+    padding: 18px 24px calc(28px + env(safe-area-inset-bottom, 0px));
     background: var(--ink);
     border-top: 1px solid #ffffff14;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     visibility: hidden;
     opacity: 0;
     transform: translateY(-12px);
+    pointer-events: none;
     transition: opacity .25s, transform .3s cubic-bezier(.2, .8, .2, 1), visibility 0s .3s
   }
 
@@ -1300,6 +1302,7 @@ footer {
     visibility: visible;
     opacity: 1;
     transform: none;
+    pointer-events: auto;
     transition: opacity .25s, transform .3s cubic-bezier(.2, .8, .2, 1)
   }
 
@@ -1335,11 +1338,15 @@ footer {
 
   .lang {
     align-self: flex-start;
-    font-size: 19px
+    min-height: 46px;
+    font-size: 19px;
+    flex: none;
   }
 
   .lang button {
-    padding: 6px 20px
+    min-height: 42px;
+    padding: 7px 20px 5px;
+    line-height: 1.15;
   }
 
   .panel .btn.sm {
@@ -1352,6 +1359,9 @@ footer {
 
   html.nav-open {
     overflow: hidden
+    }
+  html.nav-open body {
+    overflow: hidden
   }
 
   html.nav-open .fab {
@@ -1361,8 +1371,7 @@ footer {
 
 @media(max-width:860px) {
   .panel {
-    height: calc(100vh - 68px - env(safe-area-inset-top, 0px));
-    height: calc(100dvh - 68px - env(safe-area-inset-top, 0px))
+    top: calc(env(safe-area-inset-top, 0px) + 68px);
   }
 }
 
@@ -1403,6 +1412,3 @@ footer {
   display: none;
 }
 }
-
-
-
